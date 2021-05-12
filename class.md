@@ -38,7 +38,7 @@
     car = Jeep.new(20)
     car.drive
     ```
-   Here is how ruby representing the class `Vehicle` and it's instance `car` in memory 
+   Here is how ruby representing the class `Jeep`, `Vehicle` and it's instance `car` in memory 
    ![class disgram](images/class_diagram.png) 
 ---
 * `superclass` v.s. `ancestor` 
