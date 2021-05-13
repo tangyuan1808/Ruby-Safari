@@ -19,7 +19,7 @@
         * `object -> klass` can refer to a `meta-class`, that has a `super` pointer refer to the next class in inheritance chain  
     * A hash table of instance variables 
     * A set of flags, used by MRI 
-      * Singleton is set on objects that are `meta class` 
+      * `Singleton` is set on objects that are `meta class` 
       * `Mark` and `Finalize` are used for garbage collector 
       * `Exivar` is used for built in classes 
       * `Freeze` prevents objects from being modified     
