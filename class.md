@@ -1,4 +1,4 @@
-# Class
+# What is Class in Ruby
 
 * Everything in ruby are objects
 * A class object is not a instance of its superclass. In fact, all class in ruby are instances of the `Class` class 
@@ -18,7 +18,11 @@
     * A pointer to the object's immediate class, named `klass`
         * `object -> klass` can refer to a `meta-class`, that has a `super` pointer refer to the next class in inheritance chain  
     * A hash table of instance variables 
-    * A set of flags 
+    * A set of flags, used by MRI 
+      * Singleton is set on objects that are `meta class` 
+      * `Mark` and `Finalize` are used for garbage collector 
+      * `Exivar` is used for built in classes 
+      * `Freeze` prevents objects from being modified     
     * Note: built-in classes, eg: `Class`, `Float` are not really Ruby objects. They don't have instance variables. Instead they have a fixed structure.
 * To find out which method implementation is called for any object, you go "out and up". That is, you find the objects "klass", and then follow the "super" china up until you find a matching method. 
 * If I have the following class definition         
