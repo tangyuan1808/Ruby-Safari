@@ -4,12 +4,11 @@ It has many names: metaclass, engenclass, singleton class
 
 ---
 ## Why we need Singleton Class 
-It solve the `method dispatching` problem 
+It solve the `method dispatching` problem for Ruby compiler 
 
-Assuming we have the following `Vehicle Class` 
+Assuming we have the following `Vehicle` class  
 ```Ruby
 class Vehicle 
-
   def initialize(speed)
     @speed = speed
   end 
@@ -27,11 +26,11 @@ In memory, ruby present it like
 
 ![diagram_1](images/singleton_1.png)
 
-To find out which method implementation is called for any object, let's assuming complier will follow the klass pointer. 
+Noe let's assume, to find out which method implementation is called for any object, ruby will just follow the klass pointer. 
 
 When you call `car.drive`, you compiler will just find the klass of your `car` instance, which is `Verchile`, and find `drive` method there. It works
 
-But if we make the `Vehicle` a bit more complicated 
+But what if we make the `Vehicle` a bit more complicated 
 
 ```Ruby
 class Vehicle 
@@ -61,22 +60,22 @@ How would ruby represent that in memory ?
 ## Discover Singleton class 
 Singleton class solved this problem. From now, I will represent the singleton class of class `A` as `#A`, singleton class of instance `b` as `#b`.
 
+When you do `def self.register`, Ruby acutally open the singleton class of `Vehicle`, and add the `register` method there. 
+
 ![diagram_3](images/singleton_3.png)
 
-Now when you do `Vehicle.register(car) `, if will find the klass of `Vehicle`, which is `#Vehicle`, and find the `register` method there. 
-When you do `Vehicle.new`, it will follow the `klass` pointer, until we find the `new` method in `Class` class
-Everything works ! (sorry this is a lie, we will see it a bit later) 
+Now when you do `Vehicle.register(car) `, follow the `klass` pointer, you will be able to find the `register` method implementation.
+Same rule works for `Vehicle.new`. We are done here (sorry this is a lie, we will see it a bit later) 
 
-Something interesting fact here: 
+Just want to share something interesting fact before we move on: 
 * Singleton class is created only when needed
 * You can use `singleton_class` method to get the singleton_class of a class  
 * The `class` of `singleton_class` is also `Class` 
-* When you do `def self.register`, ruby acutally open the singleton class of `Vehicle`, and add a register method there. 
 
 ---
 ## Singleton class for instance 
 
-The same logic metioned apply for instances
+The same rule apply for instances
 ```
 car = Vehicle.new(25)
 def car.start
@@ -120,14 +119,15 @@ Car.register(car)
 ```
 
 How would ruby reprensent that in memory ? 
-![diagram_5](images/singleton_6.png)
+![diagram_5](images/singleton_5.png)
 
 Now just follow the `klass` pointer, `Car` can never find the `register` method. There must be a bridge between `#Car` and `#Vehicle` 
 
 Here is the bridge ! 
+
 ![diagram_6](images/singleton_6.png)
 
-The truth is, in order to find the method implentation of a calling object, Ruby Complier will first find the `klass` of the object, check the method exist. If not, it will follow the `super` chain up and repeat the same process, until find the method. 
+The truth is, in order to find the method implentation of a calling object, **Ruby Complier will first find the `klass` of the object, check the method exist. If not, it will follow the `super` chain up and repeat the same process, until find the method**. 
 
 Quick Proof 
 ```
@@ -144,6 +144,7 @@ end
 B.super # => A
 B.singleton_class.superclass # => #<Class:A>
 A.singleton_class.super_class # => #<Class:Object> 
+```
 
 ---
 ## Alternative syntaxes 
@@ -163,8 +164,7 @@ We are using this pattern when define class methods in a class
 ```
 class A
   class << self  # self is A 
-    def class_method_1 ; 
-    end
+    def class_method_1 ; end
   end
 end
 ```
