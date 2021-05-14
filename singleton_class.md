@@ -72,6 +72,7 @@ Something interesting fact here:
 * You can use `singleton_class` method to get the singleton_class of a class  
 * The `class` of `singleton_class` is also `Class` 
 * When you do `def self.register`, ruby acutally open the singleton class of `Vehicle`, and add a register method there. 
+
 ---
 ## Singleton class for instance 
 
@@ -86,6 +87,7 @@ end
 In memory, ruby represent it like this: 
 
 ![diagram_4](images/singleton_4.png)
+
 ---
 ## The turth about Singleton Class 
 
@@ -139,7 +141,34 @@ class B < A
   end
 end
 
-B.class # => Class 
 B.super # => A
 B.singleton_class.superclass # => #<Class:A>
 A.singleton_class.super_class # => #<Class:Object> 
+
+---
+## Alternative syntaxes 
+
+We can use `class << ` syntax to open singleton class and add method to it 
+
+```Ruby 
+car = Vehicle.new(2000)
+class << car  
+  def start
+    "starting..."
+  end
+end
+```
+
+We are using this pattern when define class methods in a class 
+```
+class A
+  class << self  # self is A 
+    def class_method_1 ; 
+    end
+  end
+end
+```
+
+Another way is using `extend`. When you do `self.extend(some_module)`, what it actually doing is open the singletone class of `self`, and append methods from module to it. 
+
+  
