@@ -127,7 +127,7 @@ Here is the bridge !
 
 ![diagram_6](images/singleton_6.png)
 
-The truth is, in order to find the method implentation of a calling object, **Ruby Complier will first find the `klass` of the object, check the method exist. If not, it will follow the `super` chain up and repeat the same process, until find the method**. 
+The truth: **To find out which method implementation is called for any object, you go "out and up". That is, you find the objects "klass", and then follow the "super" china up until you find a matching method**
 
 Quick Proof 
 ```
