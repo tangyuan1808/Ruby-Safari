@@ -16,7 +16,7 @@
 ---
 * Conceptually, Ruby objects consists of the following: 
     * A pointer to the object's immediate class, named `klass`
-        * `object -> klass` can refer to a `meta-class`, that has a `super` pointer refer to the next class in inheritance chain  
+    * A pointer to the next class in inheritance chain, named `super`  
     * A hash table of instance variables 
     * A set of flags, used by MRI 
       * `Singleton` is set on objects that are `meta class` 
