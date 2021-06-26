@@ -24,7 +24,7 @@
       * `Exivar` is used for built in classes 
       * `Freeze` prevents objects from being modified     
     * Note: built-in classes, eg: `Class`, `Float` are not really Ruby objects. They don't have instance variables. Instead they have a fixed structure.
-* To find out which method implementation is called for any object, you go "out and up". That is, you find the objects "klass", and then follow the "super" china up until you find a matching method. 
+* To find out which method implementation is called for any object, you go "out and up". That is, you find the objects "klass", and then follow the "super" chain up until you find a matching method. 
 * If I have the following class definition         
     ```ruby
     class Vehicle
